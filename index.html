@@ -8,9 +8,22 @@
 </head>
 <body>
 
-	<button id="feed-me">Feed</button>
-	<button id="play-with-me">Play</button>
-	<button id="turn-out-lights">Sleep</button>
+	<div id="buttons">
+		<button id="feed-me">Feed</button>
+		<button id="play-with-me">Play</button>
+		<button id="turn-out-lights">Sleep</button>
+	</div>
+
+	<div id="counters">
+		<p>Sleepiness: <span id="sleep-count">0</span></p>
+		<p>Hunger: <span id="hunger-count">0</span></p>
+		<p>Boredom: <span  id="boredom-count">0</span></p>
+	</div>
+
+	<div id="images">
+		<p>Image will change (and animate) when a button above is clicked <span id="action"></span></p>
+		<img id="theImage" src="./images/walkingCat.jpeg">
+	</div>
 
 	<script type="text/javascript" src="js/app.js"></script>
 </body>

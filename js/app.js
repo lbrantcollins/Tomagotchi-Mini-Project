@@ -22,9 +22,9 @@ class Tomagotchi {
 		this.sleepiness++;
 	}
 
-	beRested () {
-		console.log("inside beRested");
-		this.hunger = max(0, this.hunger -  3);
+	isRested () {
+		console.log("inside isRested");
+		this.hunger = Math.max(0, this.hunger -  3);
 	}
 	
 	// Hunger actions:
@@ -34,9 +34,9 @@ class Tomagotchi {
 		this.hunger++;
 	}
 
-	beFed() {
-		console.log("inside beFed");
-		this.hunger = max(0, this.hunger -  3);
+	isFed() {
+		console.log("inside isFed");
+		this.hunger = Math.max(0, this.hunger -  3);
 	}
 
 	// Boredom actions:
@@ -46,9 +46,9 @@ class Tomagotchi {
 		this.boredom++;
 	}
 
-	bePlayedWith() {
-		console.log("inside bePlayedWith");
-		this.boredom = max(0, this.boredom -  3);
+	isPlayedWith() {
+		console.log("inside isPlayedWith");
+		this.boredom = Math.max(0, this.boredom -  3);
 	}
 
 	growOlder () {
@@ -76,26 +76,33 @@ const game = {
 	//*******************************************
 	// Let the tomagotchi sleep
 	turnOutLights() {
-		console.log("inside turnOutLights function");
-		this.tomoagotchi.beRested();
+		console.log("inside turnOutLights");
+		this.tomagotchi.isRested();
 		// change CSS image/animation to dark background
 		// and dark, sleeping image of pet
 	},
 	// Feed the tomagotchi
 	feedTomagotchi() {
-		console.log("inside feedTomagotchi function");
-		this.tomoagotchi.beFed();
+		console.log("inside feedTomagotchi");
+		this.tomagotchi.isFed();
 		// change CSS image/animation to hungry pet
 	},
 	// play with the tomagotchi
 	playWithTomagotchi() {
-		console.log("inside playWithTomagotchi function");
-		this.tomoagotchi.bePlayedWith();
+		console.log("inside playWithTomagotchi");
+		this.tomagotchi.isPlayedWith();
 		// change CSS image/animation to playing pet
 		
 	},
 
-	
+	updateScoreBoard() {
+		console.log("inside updateScoreBoard");
+		console.log(this.tomagotchi.sleepiness, this.tomagotchi.hunger, this.tomagotchi.boredom);
+		$('#sleep-count').text(this.tomagotchi.sleepiness);
+		$('#hunger-count').text(`Hunger: ${this.tomagotchi.hunger}`);
+		$('#boredom-count').text(`Boredom: ${this.tomagotchi.boredom}`);
+		console.log($('#boredom-count').text());
+	},
 
 	ageTomagotchi () {
 		console.log("inside ageTomagotchi function");
@@ -136,6 +143,9 @@ const game = {
 	   		console.log("increasing boredom counter: "
 	   			+ this.tomagotchi.boredom);
 	   	}
+
+	   	// Display updated counts
+	   	this.updateScoreBoard();
 
 	   	// Check if tomagotchi has died or grown too old
 			if ( 	(this.tomagotchi.sleepiness >= this.tomagotchi.limit)
