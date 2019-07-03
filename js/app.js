@@ -11,7 +11,7 @@ class Tomagotchi {
 		this.hunger = 0;
 		this.sleepiness = 0;
 		this.boredom = 0;
-		this.limit = 10;
+		this.limit = 3;
 		this.ageLimit = 4;
 	}
 
@@ -105,6 +105,7 @@ const game = {
 	startTimer() {
 		// MDN timer -- returns a handle that can be used to stop timer
 		// setInterval -- increase time elapsed
+		console.log("Upper limit: " + this.tomagotchi.limit);	
 
 	   const timer = setInterval( () => {
 	   	this.timeElapsed++;
@@ -119,24 +120,27 @@ const game = {
 
 	   	// Sleepiness increase (slowest to change)
 	   	if (this.timeElapsed % 7 === 0) {
-	   		console.log("increasing sleep counter");
 	   		this.tomagotchi.getSleepier();
+	   		console.log("increasing sleep counter: " 
+	   			+ this.tomagotchi.sleepiness);
 	   	}
 	   	// Hunger increase
 	   	if (this.timeElapsed % 5 === 0) {
-	   		console.log("increasing hunger counter");
 	   		this.tomagotchi.getHungrier();
+	   		console.log("increasing hunger counter: "
+	   			+ this.tomagotchi.hunger);
 	   	}
 	   	// Boredom increase (fastest to change)
 	   	if (this.timeElapsed % 3 === 0) {
-	   		console.log("increasing boredom counter");
 	   		this.tomagotchi.getMoreBored();
+	   		console.log("increasing boredom counter: "
+	   			+ this.tomagotchi.boredom);
 	   	}
 
-	   	// Check if tomagotchi has died or grown too old	
+	   	// Check if tomagotchi has died or grown too old
 			if ( 	(this.tomagotchi.sleepiness >= this.tomagotchi.limit)
-					||	(this.tomagotchi.sleepiness >= this.tomagotchi.limit)
-					||	(this.tomagotchi.sleepiness >= this.tomagotchi.limit)
+					||	(this.tomagotchi.hunger >= this.tomagotchi.limit)
+					||	(this.tomagotchi.boredom >= this.tomagotchi.limit)
 					||	(this.tomagotchi.age >= this.tomagotchi.agelimit)
 				) {
 
@@ -146,7 +150,7 @@ const game = {
 			
 
 			
-		}, 3000);
+		}, 2000);
   	}
 
 }
