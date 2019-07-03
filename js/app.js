@@ -78,7 +78,32 @@ const game = {
 		// change CSS image/animation increase size of pet
 	},
 
-	
+	setTimer () {
+
+	   const timer = setInterval( () => {
+	   	this.timeElapsed++;
+	   	if (timeElapse % 3 === 0) {
+	   		tomagotchi.getSleepier();
+	   	}
+
+			if ( 	(tomagotchi.sleepiness >= tomagotchi.limit)
+					||	(tomagotchi.sleepiness >= tomagotchi.limit)
+					||	(tomagotchi.sleepiness >= tomagotchi.limit)
+					||	(tomagotchi.age >= tomagotchi.agelimit)
+				) {
+
+				clearInterval(timer);
+				console.log("end of game");
+			}
+			$('#timer').text(`Time: ${this.time}s`);
+
+			// a failsafe to get out of the timer
+			if (this.timeElapsed >= 10) {
+				clearInterval(timer);
+				console.log("Thank goodness I put in a timer stopper!");
+			}
+		}, 1000);
+  	}
 
 }
 
