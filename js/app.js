@@ -67,9 +67,20 @@ const game = {
 	handle: null,
 	timeElapsed: 0,
 
+	startTomagotchi() {
+		/////// Need to prompt user for name here //////
+		this.createTomagotchi("tommy"); 
+		this.initializeScoreBoard();
+		this.startTimer();
+	},
+
 	createTomagotchi: function(name) {
 		console.log("inside createTomagotchi function");
 		this.tomagotchi = new Tomagotchi(name);
+	},
+
+	initializeScoreBoard() {
+		$('.limit').text(` out of ${this.tomagotchi.limit}`);
 	},
 
 	// Animation is triggered by button push
@@ -99,9 +110,8 @@ const game = {
 		console.log("inside updateScoreBoard");
 		console.log(this.tomagotchi.sleepiness, this.tomagotchi.hunger, this.tomagotchi.boredom);
 		$('#sleep-count').text(this.tomagotchi.sleepiness);
-		$('#hunger-count').text(`Hunger: ${this.tomagotchi.hunger}`);
-		$('#boredom-count').text(`Boredom: ${this.tomagotchi.boredom}`);
-		console.log($('#boredom-count').text());
+		$('#hunger-count').text(this.tomagotchi.hunger);
+		$('#boredom-count').text(this.tomagotchi.boredom);
 	},
 
 	ageTomagotchi () {
@@ -165,8 +175,11 @@ const game = {
 
 }
 
-game.createTomagotchi("tommy");
-game.startTimer();
+//**************************************************
+// Start the game
+game.startTomagotchi();
+//**************************************************
+
 
 //**************************************************
 // Event listeners
