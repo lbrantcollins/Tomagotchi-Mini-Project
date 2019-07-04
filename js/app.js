@@ -24,7 +24,7 @@ class Tomagotchi {
 
 	isRested () {
 		console.log("inside isRested");
-		this.hunger = Math.max(0, this.hunger -  3);
+		this.sleepiness = Math.max(0, this.sleepiness -  3);
 	}
 	
 	// Hunger actions:
@@ -85,25 +85,39 @@ const game = {
 
 	// Animation is triggered by button push
 	//*******************************************
-	// Let the tomagotchi sleep
+
+	// Let the tomagotchi sleep (turn off the lights)
 	turnOutLights() {
 		console.log("inside turnOutLights");
 		this.tomagotchi.isRested();
 		// change CSS image/animation to dark background
 		// and dark, sleeping image of pet
+		$("#the-image").attr("src", "./images/catSleepingBlackBackground.png")
+		$("#the-image").attr("width", "180px")
+
+		$("body").css("background-color", "#171719");
+		$("body").css("color", "lightgrey");
 	},
+
 	// Feed the tomagotchi
 	feedTomagotchi() {
 		console.log("inside feedTomagotchi");
 		this.tomagotchi.isFed();
 		// change CSS image/animation to hungry pet
+		$("#the-image").attr("src", "./images/hungryCat.jpeg")
+		$("body").css("background-color", "white");
+		$("body").css("color", "black");
 	},
+
 	// play with the tomagotchi
 	playWithTomagotchi() {
 		console.log("inside playWithTomagotchi");
 		this.tomagotchi.isPlayedWith();
 		// change CSS image/animation to playing pet
-		
+		$("#the-image").attr("src", "./images/playingCat.jpeg")
+		$("body").css("background-color", "white");
+		$("body").css("color", "black");
+		$("#the-image").attr("width", "500px")
 	},
 
 	updateScoreBoard() {
