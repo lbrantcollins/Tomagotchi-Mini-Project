@@ -4,7 +4,7 @@ console.log("Are you ready to own a Tomagotchi?");
 //**************************************************
 // Definition of Tomagotchi class
 //**************************************************
-class Tomagotchi {
+class ClassTomagotchi {
 	constructor(name) {
 		this.name = name;
 		this.age = 0;
@@ -18,7 +18,7 @@ class Tomagotchi {
 	// Sleepiness actions:
 	//***********************
 	getSleepier () {
-		console.log("inside getSleepier function");
+		console.log("inside getSleepier");
 		this.sleepiness++;
 	}
 
@@ -64,19 +64,18 @@ class Tomagotchi {
 //**************************************************
 const game = {
 	tomagotchi: null,
-	handle: null,
 	timeElapsed: 0,
+	maxTimeLengthOfGame: 26,
 
 	startTomagotchi() {
-		/////// Need to prompt user for name here //////
-		this.createTomagotchi("tommy"); 
+		this.createTomagotchi("tommy"); //****** prompt user for name here
 		this.initializeScoreBoard();
 		this.startTimer();
 	},
 
 	createTomagotchi: function(name) {
-		console.log("inside createTomagotchi function");
-		this.tomagotchi = new Tomagotchi(name);
+		console.log("inside createTomagotchi");
+		this.tomagotchi = new ClassTomagotchi(name);
 	},
 
 	initializeScoreBoard() {
@@ -92,11 +91,10 @@ const game = {
 		this.tomagotchi.isRested();
 		// change CSS image/animation to dark background
 		// and dark, sleeping image of pet
-		$("#the-image").attr("src", "./images/catSleepingBlackBackground.png")
-		$("#the-image").attr("width", "180px")
-
+		$("#image-src").attr("src", "./images/catSleepingBlackBackground.png")
 		$("body").css("background-color", "#171719");
 		$("body").css("color", "lightgrey");
+		// $("#image-div").attr("width", "100px")
 	},
 
 	// Feed the tomagotchi
@@ -104,7 +102,7 @@ const game = {
 		console.log("inside feedTomagotchi");
 		this.tomagotchi.isFed();
 		// change CSS image/animation to hungry pet
-		$("#the-image").attr("src", "./images/hungryCat.jpeg")
+		$("#image-src").attr("src", "./images/hungryCat.jpeg")
 		$("body").css("background-color", "white");
 		$("body").css("color", "black");
 	},
@@ -114,10 +112,10 @@ const game = {
 		console.log("inside playWithTomagotchi");
 		this.tomagotchi.isPlayedWith();
 		// change CSS image/animation to playing pet
-		$("#the-image").attr("src", "./images/playingCat.jpeg")
+		$("#image-src").attr("src", "./images/playingCat.jpeg")
 		$("body").css("background-color", "white");
 		$("body").css("color", "black");
-		$("#the-image").attr("width", "500px")
+		// $("#image-div").attr("width", "500px")
 	},
 
 	updateScoreBoard() {
@@ -129,22 +127,36 @@ const game = {
 	},
 
 	ageTomagotchi () {
-		console.log("inside ageTomagotchi function");
+		console.log("inside ageTomagotchi");
 		// change CSS image/animation increase size of pet
 	},
+
+	revertToOriginalTomagotchiImage () {
+		console.log("inside revertToOriginalTomagotchiImage");
+		// change CSS image/animation return to original starting image
+	},
+
+	increaseSizeOfTomagotchi () {
+		console.log("inside increaseSizeOfTomagotchi");
+		// change base size of Tomagotchi image 
+	}
 
 	startTimer() {
 		// MDN timer -- returns a handle that can be used to stop timer
 		// setInterval -- increase time elapsed
 		console.log("Upper limit: " + this.tomagotchi.limit);	
 
+		// Allow CSS to revert to walking cat after feed, play, sleep
+		let revertTime = 1;
+
 	   const timer = setInterval( () => {
 	   	this.timeElapsed++;
 	   	console.log(`time: ${this.timeElapsed}`);
-	   	// a failsafe to get out of the timer
-			if (this.timeElapsed >= 15) {
+
+	   	// a failsafe to get out of the timer after a long time of playing
+			if (this.timeElapsed >= maxTimeLengthOfGame) {
 				clearInterval(timer);
-				console.log("Thank goodness I put in a timer stopper!");
+				console.log("Game too long!\n Thank goodness I put in a failsafe to stop the game so you can rest!");
 			}
 
 	   	// $('#timer').text(`Time: ${this.time}s`);
@@ -154,35 +166,55 @@ const game = {
 	   		this.tomagotchi.getSleepier();
 	   		console.log("increasing sleep counter: " 
 	   			+ this.tomagotchi.sleepiness);
+	   		revertTime = this.timeElapsed + 3;
+
 	   	}
 	   	// Hunger increase
 	   	if (this.timeElapsed % 5 === 0) {
 	   		this.tomagotchi.getHungrier();
 	   		console.log("increasing hunger counter: "
 	   			+ this.tomagotchi.hunger);
+	   		revertTime = this.timeElapsed + 3;
 	   	}
 	   	// Boredom increase (fastest to change)
 	   	if (this.timeElapsed % 3 === 0) {
 	   		this.tomagotchi.getMoreBored();
 	   		console.log("increasing boredom counter: "
 	   			+ this.tomagotchi.boredom);
-	   	}
+	   		revertTime = this.timeElapsed + 3;
+			}
+			// increase age (much slower to change)
+			if (this.timeElapsed % 11 === 0) {
+	   		this.tomagotchi.growOlder();
+	   		console.log("increasing age counter: "
+	   			+ this.tomagotchi.age);
+	   		this.increaseSizeOfTomagotchi();
+			}
 
-	   	// Display updated counts
+			// Revert back to original image 
+			// after some time spent in feed, play, or sleep image
+			if (this.timeElapsed === revertTime) {
+				this.revertToOriginalTomagotchiImage();
+			} 
+
+	   	// Display updated score board
 	   	this.updateScoreBoard();
 
 	   	// Check if tomagotchi has died or grown too old
-			if ( 	(this.tomagotchi.sleepiness >= this.tomagotchi.limit)
-					||	(this.tomagotchi.hunger >= this.tomagotchi.limit)
-					||	(this.tomagotchi.boredom >= this.tomagotchi.limit)
-					||	(this.tomagotchi.age >= this.tomagotchi.agelimit)
-				) {
-
+	   	const stressLimit = this.tomagotchi.limit;
+			if (this.tomagotchi.sleepiness >= stressLimit) {
+				console.log(`${tomagotchi1} died from lack of sleep!`)
 				clearInterval(timer);
-				console.log("end of game");
+			} else if (this.tomagotchi.hunger >= stressLimit) {
+				console.log(`${tomagotchi1} died from lack of sleep!`)
+				clearInterval(timer);
+			} else if (this.tomagotchi.boredom >= stressLimit) {
+				console.log(`${tomagotchi1} died from lack of sleep!`)
+				clearInterval(timer);
+			} else if (this.tomagotchi.age >= this.tomagotchi.agelimit) {
+				console.log(`${tomagotchi1} is too old to continue!`)
+				clearInterval(timer);
 			}
-			
-
 			
 		}, 2000);
   	}
@@ -200,12 +232,15 @@ game.startTomagotchi();
 //**************************************************
 $('#feed-me').on('click', (e) => {
 	game.feedTomagotchi();
+	game.updateScoreBoard();
 })
 
 $('#play-with-me').on('click', (e) => {
-	game.playWithTomagotchi()
+	game.playWithTomagotchi();
+	game.updateScoreBoard();
 });
 
 $('#turn-out-lights').on('click', (e) => {
-	game.turnOutLights()
+	game.turnOutLights();
+	game.updateScoreBoard();
 });
