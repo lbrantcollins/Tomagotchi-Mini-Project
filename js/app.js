@@ -65,12 +65,13 @@ class ClassTomagotchi {
 const game = {
 	tomagotchi: null,
 	timeElapsed: 0,
-	maxTimeLengthOfGame: 26,
+	maxTimeLengthOfGame: 23,
 
 	startTomagotchi() {
 		this.createTomagotchi("tommy"); //****** prompt user for name here
 		this.initializeScoreBoard();
 		this.startTimer();
+		console.log("max time: " + this.maxTimeLengthOfGame);
 	},
 
 	createTomagotchi: function(name) {
@@ -118,12 +119,12 @@ const game = {
 		// $("#image-div").attr("width", "500px")
 	},
 
-	updateScoreBoard() {
-		console.log("inside updateScoreBoard");
-		console.log(this.tomagotchi.sleepiness, this.tomagotchi.hunger, this.tomagotchi.boredom);
-		$('#sleep-count').text(this.tomagotchi.sleepiness);
-		$('#hunger-count').text(this.tomagotchi.hunger);
-		$('#boredom-count').text(this.tomagotchi.boredom);
+	revertToOriginalTomagotchiImage () {
+		console.log("inside revertToOriginalTomagotchiImage");
+		// change CSS image/animation return to original starting image
+		$("#image-src").attr("src", "./images/walkingCat.jpeg")
+		$("body").css("background-color", "white");
+		$("body").css("color", "black");
 	},
 
 	ageTomagotchi () {
@@ -131,15 +132,16 @@ const game = {
 		// change CSS image/animation increase size of pet
 	},
 
-	revertToOriginalTomagotchiImage () {
-		console.log("inside revertToOriginalTomagotchiImage");
-		// change CSS image/animation return to original starting image
+	updateScoreBoard() {
+		console.log("inside updateScoreBoard");
+		console.log("sleep", this.tomagotchi.sleepiness, 
+			"hunger", this.tomagotchi.hunger, 
+			"boredom", this.tomagotchi.boredom, 
+			"age", this.tomagotchi.age);
+		$('#sleep-count').text(this.tomagotchi.sleepiness);
+		$('#hunger-count').text(this.tomagotchi.hunger);
+		$('#boredom-count').text(this.tomagotchi.boredom);
 	},
-
-	increaseSizeOfTomagotchi () {
-		console.log("inside increaseSizeOfTomagotchi");
-		// change base size of Tomagotchi image 
-	}
 
 	startTimer() {
 		// MDN timer -- returns a handle that can be used to stop timer
@@ -154,7 +156,7 @@ const game = {
 	   	console.log(`time: ${this.timeElapsed}`);
 
 	   	// a failsafe to get out of the timer after a long time of playing
-			if (this.timeElapsed >= maxTimeLengthOfGame) {
+			if (this.timeElapsed >= this.maxTimeLengthOfGame) {
 				clearInterval(timer);
 				console.log("Game too long!\n Thank goodness I put in a failsafe to stop the game so you can rest!");
 			}
@@ -166,7 +168,7 @@ const game = {
 	   		this.tomagotchi.getSleepier();
 	   		console.log("increasing sleep counter: " 
 	   			+ this.tomagotchi.sleepiness);
-	   		revertTime = this.timeElapsed + 3;
+	   		revertTime = this.timeElapsed + 1;
 
 	   	}
 	   	// Hunger increase
@@ -174,21 +176,21 @@ const game = {
 	   		this.tomagotchi.getHungrier();
 	   		console.log("increasing hunger counter: "
 	   			+ this.tomagotchi.hunger);
-	   		revertTime = this.timeElapsed + 3;
+	   		revertTime = this.timeElapsed + 1;
 	   	}
 	   	// Boredom increase (fastest to change)
 	   	if (this.timeElapsed % 3 === 0) {
 	   		this.tomagotchi.getMoreBored();
 	   		console.log("increasing boredom counter: "
 	   			+ this.tomagotchi.boredom);
-	   		revertTime = this.timeElapsed + 3;
+	   		revertTime = this.timeElapsed + 1;
 			}
 			// increase age (much slower to change)
 			if (this.timeElapsed % 11 === 0) {
 	   		this.tomagotchi.growOlder();
 	   		console.log("increasing age counter: "
 	   			+ this.tomagotchi.age);
-	   		this.increaseSizeOfTomagotchi();
+	   		this.ageTomagotchi();
 			}
 
 			// Revert back to original image 
@@ -203,16 +205,16 @@ const game = {
 	   	// Check if tomagotchi has died or grown too old
 	   	const stressLimit = this.tomagotchi.limit;
 			if (this.tomagotchi.sleepiness >= stressLimit) {
-				console.log(`${tomagotchi1} died from lack of sleep!`)
+				console.log(`${this.tomagotchi.name} died from lack of sleep!`)
 				clearInterval(timer);
 			} else if (this.tomagotchi.hunger >= stressLimit) {
-				console.log(`${tomagotchi1} died from lack of sleep!`)
+				console.log(`${this.tomagotchi.name} died from hunger!`)
 				clearInterval(timer);
 			} else if (this.tomagotchi.boredom >= stressLimit) {
-				console.log(`${tomagotchi1} died from lack of sleep!`)
+				console.log(`${this.tomagotchi.name} died from boredom!`)
 				clearInterval(timer);
 			} else if (this.tomagotchi.age >= this.tomagotchi.agelimit) {
-				console.log(`${tomagotchi1} is too old to continue!`)
+				console.log(`${this.tomagotchi.name} is too old to continue!`)
 				clearInterval(timer);
 			}
 			
