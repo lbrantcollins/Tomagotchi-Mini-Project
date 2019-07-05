@@ -14,24 +14,39 @@
 	<div id="container">
 
 		<div id="buttons">
-			<button id="feed-me">Feed Me!</button>
-			<button id="turn-out-lights">Turn out the lights!</button>
 			<button id="turn-on-lights">Turn on the lights!</button>
 		</div>
 
-		<div id="boredom">
-			<div id="boredom-meter">
+		<div class="meter-div">
+			<div id="sleep-meter" class="meter">
+	  		</div>
+	  		<button id="turn-out-lights" type="button" class="btn btn-dark">Turn out the lights!</button>
+	  	</div>
+
+	  	<div class="meter-div">
+			<div id="wake-meter" class="meter">
+	  		</div>
+	  		<button id="turn-on-lights" type="button" class="btn btn-warning">Turn on the lights!</button>
+	  	</div>
+
+		<div class="meter-div">
+			<div id="hunger-meter" class="meter">
+	  		</div>
+	  		<button id="feed-me" type="button" class="btn btn-success">Feed me!</button>
+	  	</div>
+		
+		<div class="meter-div">
+			<div id="boredom-meter" class="meter">
 	  		</div>
 	  		<button id="play-with-me" type="button" class="btn btn-primary">Play with Me!</button>
-	  		<!-- <button id="play-with-me">Play with Me!</button> -->
 	  	</div>
 
 
-		<div id="counters">
+<!-- 		<div id="counters">
 			<p>Sleepiness: <span id="sleep-count">0</span> <span class="limit"></span></p>
 			<p>Hunger: <span id="hunger-count">0</span> <span class="limit"></span></p>
 			<p>Boredom: <span  id="boredom-count">0</span> <span class="limit"></span></p>
-		</div>
+		</div> -->
 
 		<!-- Simon's cat looking up expectantly (starting point)  -->
 		<div id="image-div">
