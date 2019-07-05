@@ -11,7 +11,7 @@ class ClassTomagotchi {
 		this.hunger = 0;
 		this.sleepiness = 0;
 		this.boredom = 0;
-		this.limit = 3;
+		this.limit = 6;
 		this.ageLimit = 4;
 	}
 
@@ -24,7 +24,7 @@ class ClassTomagotchi {
 
 	isRested () {
 		console.log("inside isRested");
-		this.sleepiness = Math.max(0, this.sleepiness -  3);
+		this.sleepiness = Math.max(0, this.sleepiness -  parseInt(this.limit / 2));
 	}
 	
 	// Hunger actions:
@@ -36,7 +36,7 @@ class ClassTomagotchi {
 
 	isFed() {
 		console.log("inside isFed");
-		this.hunger = Math.max(0, this.hunger -  3);
+		this.hunger = Math.max(0, this.hunger -  parseInt(this.limit / 2));
 	}
 
 	// Boredom actions:
@@ -48,7 +48,7 @@ class ClassTomagotchi {
 
 	isPlayedWith() {
 		console.log("inside isPlayedWith");
-		this.boredom = Math.max(0, this.boredom -  3);
+		this.boredom = Math.max(0, this.boredom -  parseInt(this.limit / 2));
 	}
 
 	growOlder () {
@@ -65,12 +65,12 @@ class ClassTomagotchi {
 const game = {
 	tomagotchi: null,
 	timeElapsed: 0,
-	maxTimeLengthOfGame: 23,
+	maxTimeLengthOfGame: 50,
 
 	startTomagotchi() {
 		this.createTomagotchi("tommy"); //****** prompt user for name here
 		this.initializeScoreBoard();
-		this.startTimer();
+		this.runGame();
 		console.log("max time: " + this.maxTimeLengthOfGame);
 		
 
@@ -109,14 +109,7 @@ const game = {
 		console.log("inside feedTomagotchi");
 		this.tomagotchi.isFed();
 		// change CSS image/animation to hungry pet
-		// $("#image-src").attr("src", "./images/hungryCat.jpeg");
 		$("#image-src").attr("src", "https://giphy.com/embed/1r94BxRXEi2l5YnGVp");
-		// $('#image-div').css("animation-name", "bounce");
-		// $('#image-div').css("animation-duration", "0.25s");
-		// $('#image-div').css("animation-direction", "alternate");
-  // 		$('#image-div').css("animation-timing-function", "cubic-bezier(.5,0.05,1,.5)");
-  // 		$('#image-div').css("animation-iteration-count", "8");
-  // 		$('#image-div').css("animation-play-state", "paused");
 		$("body").css("background-color", "white");
 		// $("body").css("color", "black");
 	},
@@ -126,39 +119,23 @@ const game = {
 		console.log("inside playWithTomagotchi");
 		this.tomagotchi.isPlayedWith();
 		// change CSS image/animation to playing pet
-		// $("#image-src").attr("src", "./images/playingCat.jpeg");
 		$("#image-src").attr("src", "https://giphy.com/embed/2zotXB1xGbTB28cKAD");
 		$("body").css("background-color", "white");
 		// $("body").css("color", "black");
-		// $("#image-div").attr("width", "500px")
-	},
-
-	revertToOriginalTomagotchiImage () {
-		console.log("inside revertToOriginalTomagotchiImage");
-		// change CSS image/animation return to original starting image
-		// $("#image-src").attr("src", "./images/walkingCat.jpeg");
-		$("#image-src").attr("src", "https://giphy.com/embed/xl1pVfHSGczTgLL3YQ");
-		$("body").css("background-color", "white");
-		$("body").css("color", "black");
 	},
 
 	ageTomagotchi () {
 		console.log("inside ageTomagotchi");
 		// change CSS image/animation increase size of pet
 		if (this.tomagotchi.age === 2 ) {
-		// 		console.log("inside css changes inside ageTomagotchi");
-		// 		$('#image-div').css("animation-name", "age2");
-		// 		$('#image-div').css("animation-duration", "2s");
-		// 		$('#image-div').css("animation-iteration-count", "1");
-				$('#image-div').css("transform", "scale(2)");
-			}
-				if (this.tomagotchi.age === 3 ) {
-		// 		console.log("inside css changes inside ageTomagotchi");
-		// 		$('#image-div').css("animation-name", "age3");
-		// 		$('#image-div').css("animation-duration", "2s");
-		// 		$('#image-div').css("animation-iteration-count", "1");
-				$('#image-div').css("transform", "scale(3.5)");
-			}
+			$('#image-div').css("transform", "scale(2)");
+		}
+		if (this.tomagotchi.age === 3 ) {
+			$('#image-div').css("transform", "scale(3)");
+		}
+		if (this.tomagotchi.age === 4 ) {
+			$('#image-div').css("transform", "scale(4)");
+		}
 	},
 
 	updateScoreBoard() {
@@ -172,13 +149,12 @@ const game = {
 		$('#boredom-count').text(this.tomagotchi.boredom);
 	},
 
-	startTimer() {
+	runGame() {
 		// MDN timer -- returns a handle that can be used to stop timer
 		// setInterval -- increase time elapsed
 		console.log("Upper limit: " + this.tomagotchi.limit);	
 
-		// Allow CSS to revert to walking cat after feed, play, sleep
-		let revertTime = 1;
+		const warningTimeProportion = 2/3;
 
 	   const timer = setInterval( () => {
 	   	this.timeElapsed++;
@@ -193,40 +169,40 @@ const game = {
 	   	// $('#timer').text(`Time: ${this.time}s`);
 
 	   	// Sleepiness increase (slowest to change)
-	   	if (this.timeElapsed % 7 === 0) {
+	   	if (this.timeElapsed % 11 === 0) {
 	   		this.tomagotchi.getSleepier();
 	   		console.log("increasing sleep counter: " 
 	   			+ this.tomagotchi.sleepiness);
-	   		revertTime = this.timeElapsed + 2;
-
 	   	}
 	   	// Hunger increase
-	   	if (this.timeElapsed % 5 === 0) {
+	   	if (this.timeElapsed % 7 === 0) {
 	   		this.tomagotchi.getHungrier();
 	   		console.log("increasing hunger counter: "
 	   			+ this.tomagotchi.hunger);
-	   		revertTime = this.timeElapsed + 2;
+	   		if (this.tomagotchi.hunger >= this.tomagotchi.limit * warningTimeProportion) {
+	   			// show hungry Tomagotchi
+	   			$("#image-src").attr("src", "https://giphy.com/embed/1xnu4sgy1FpbHXZoW6");
+	   		}
 	   	}
 	   	// Boredom increase (fastest to change)
 	   	if (this.timeElapsed % 3 === 0) {
 	   		this.tomagotchi.getMoreBored();
 	   		console.log("increasing boredom counter: "
 	   			+ this.tomagotchi.boredom);
-	   		revertTime = this.timeElapsed + 2;
+	   		if (this.tomagotchi.boredom >= this.tomagotchi.limit * warningTimeProportion) {
+	   			// show hungry Tomagotchi
+	   			$("#image-src").attr("src", "https://giphy.com/embed/pzvUEkOeAViy7VS7B6");
+	   		}
+
 			}
 			// increase age (much slower to change)
-			if (this.timeElapsed % 4 === 0) {
+			if (this.timeElapsed % 13 === 0) {
 	   		this.tomagotchi.growOlder();
 	   		console.log("increasing age counter: "
 	   			+ this.tomagotchi.age);
+	   		// show effect of age (by increasing size of Tomagotchi)
 	   		this.ageTomagotchi();
 			}
-
-			// Revert back to original image 
-			// after some time spent in feed, play, or sleep image
-			if (this.timeElapsed === revertTime) {
-				this.revertToOriginalTomagotchiImage(this.tomagotchi.age);
-			} 
 
 	   	// Display updated score board
 	   	this.updateScoreBoard();
@@ -234,16 +210,20 @@ const game = {
 	   	// Check if tomagotchi has died or grown too old
 	   	const stressLimit = this.tomagotchi.limit;
 			if (this.tomagotchi.sleepiness >= stressLimit) {
-				console.log(`${this.tomagotchi.name} died from lack of sleep!`)
+				console.log(`${this.tomagotchi.name} died from lack of sleep!`);
+				$("#image-src").attr("src", "https://giphy.com/embed/SGld0SRSJzZuKAm9c1");
 				clearInterval(timer);
 			} else if (this.tomagotchi.hunger >= stressLimit) {
-				console.log(`${this.tomagotchi.name} died from hunger!`)
+				console.log(`${this.tomagotchi.name} died from hunger!`);
+				$("#image-src").attr("src", "https://giphy.com/embed/SGld0SRSJzZuKAm9c1");
 				clearInterval(timer);
 			} else if (this.tomagotchi.boredom >= stressLimit) {
-				console.log(`${this.tomagotchi.name} died from boredom!`)
+				console.log(`${this.tomagotchi.name} died from boredom!`);
+				$("#image-src").attr("src", "https://giphy.com/embed/SGld0SRSJzZuKAm9c1");
 				clearInterval(timer);
 			} else if (this.tomagotchi.age >= this.tomagotchi.agelimit) {
-				console.log(`${this.tomagotchi.name} is too old to continue!`)
+				console.log(`${this.tomagotchi.name} is too old to continue!`);
+				$("#image-src").attr("src", "https://giphy.com/embed/SGld0SRSJzZuKAm9c1");
 				clearInterval(timer);
 			}
 			
