@@ -14,7 +14,7 @@ class ClassTomagotchi {
 		this.sleepiness = 0;
 		this.sleepIntervalDefault = 11;
 		this.hunger = 0;
-		this.hungerIntervalDefault = 7;
+		this.hungerIntervalDefault = 8;
 		this.boredom = 0;
 		this.boredomIntervalDefault = 3;
 
@@ -24,61 +24,19 @@ class ClassTomagotchi {
 		this.wakeIntervalDefault = 3;
 	}
 
-	// decrement the sleep, hunger, boredom, meter
-	decrementMeter (characteristic) {
+	// decrement the sleep, hunger, boredom meters
+	// age never gets decremented 
+	// and wake gets set back to zero after sleep
+	decrementMeter (characteristic) {;
 		characteristic = Math.max(0, characteristic -  parseInt(this.sleepHungerBoredomLimit / 2));
+		return characteristic;
 	}
-	// increment the age, sleep, hunger, boredom, wake meter
+	// increment the sleep, hunger, boredom (and age and wake) meters
 	incrementMeter (characteristic) {
 		characteristic++;
+		return characteristic;
 	}
 
-	// Sleepiness actions:
-	//***********************
-	getSleepier () {
-		console.log("inside getSleepier");
-		this.sleepiness++;
-	}
-
-	isRested () {
-		console.log("inside isRested");
-		this.sleepiness = Math.max(0, this.sleepiness -  parseInt(this.sleepHungerBoredomLimit / 2));
-		//******** Instead of jsut decrementing hunger and boredom during sleep, 
-		//******** want to turn stop them from incrementing
-		this.isFed();
-		this.isPlayedWith();
-	}
-	
-	// Hunger actions:
-	//***********************
-	getHungrier () {
-		console.log("inside getHungier");
-		this.hunger++;
-	}
-
-	isFed() {
-		console.log("inside isFed");
-		this.hunger = Math.max(0, this.hunger -  parseInt(this.sleepHungerBoredomLimit / 2));
-	}
-
-	// Boredom actions:
-	//***********************
-	getMoreBored () {
-		console.log("inside getMoreBored");
-		this.boredom++;
-	}
-
-	isPlayedWith() {
-		console.log("inside isPlayedWith");
-		this.boredom = Math.max(0, this.boredom -  parseInt(this.sleepHungerBoredomLimit / 2));
-	}
-
-	growOlder () {
-		console.log("inside growOlder");
-		this.age++;
-
-	}
-	
 }
 
 //**************************************************
@@ -95,8 +53,6 @@ const game = {
 		this.initializeScoreBoard();
 		this.runGame();
 		console.log("max time: " + this.maxTimeLengthOfGame);
-		
-
 	},
 
 	createTomagotchi: function(name) {
@@ -114,36 +70,35 @@ const game = {
 	// Let the tomagotchi sleep (turn off the lights)
 	turnOutLights() {
 		console.log("inside turnOutLights");
-		this.tomagotchi.isRested();
+		this.tomagotchi.sleepiness = this.tomagotchi.decrementMeter(this.tomagotchi.sleepiness);
 		// change CSS image/animation to dark background
 		// and dark, sleeping image of pet
 		$("#image-src").attr("src", "https://giphy.com/embed/1URlthYDD9ZfNe68JT");
 		$("body").css("background-color", "#171719");
 		$("body").css("color", "lightgrey");
-		// $("#image-div").attr("width", "100px")
-		// stall the boredom and hunger timers
-
-
+		//******************
+		//****************** stall the boredom and hunger timers
+		//******************
 	},
 
 	// Feed the tomagotchi
 	feedTomagotchi() {
-		console.log("inside feedTomagotchi");
-		this.tomagotchi.isFed();
+		// console.log("inside feedTomagotchi");
+		this.tomagotchi.hunger = this.tomagotchi.decrementMeter(this.tomagotchi.hunger);
 		// change CSS image/animation to hungry pet
 		$("#image-src").attr("src", "https://giphy.com/embed/1r94BxRXEi2l5YnGVp");
 		$("body").css("background-color", "white");
-		// $("body").css("color", "black");
+		$("body").css("color", "black");
 	},
 
 	// play with the tomagotchi
 	playWithTomagotchi() {
-		console.log("inside playWithTomagotchi");
-		this.tomagotchi.isPlayedWith();
+		// console.log("inside playWithTomagotchi:");
+		this.tomagotchi.boredom = this.tomagotchi.decrementMeter(this.tomagotchi.boredom);
 		// change CSS image/animation to playing pet
 		$("#image-src").attr("src", "https://giphy.com/embed/2zotXB1xGbTB28cKAD");
 		$("body").css("background-color", "white");
-		// $("body").css("color", "black");
+		$("body").css("color", "black");
 	},
 
 	ageTomagotchi () {
@@ -191,7 +146,7 @@ const game = {
 
 	   	// Sleepiness increase (slowest to change)
 	   	if (this.timeElapsed % this.tomagotchi.sleepIntervalDefault === 0) {
-	   		this.tomagotchi.incrementMeter(this.tomagotchi.sleepiness);
+	   		this.tomagotchi.sleepiness = this.tomagotchi.incrementMeter(this.tomagotchi.sleepiness);
 	   		console.log("increasing sleep counter: " + this.tomagotchi.sleepiness);
 	   		if (this.tomagotchi.sleepiness >= this.tomagotchi.sleepHungerBoredomLimit * this.warningTimeProportion) {
 	   			// show sleeping Tomagotchi
@@ -200,7 +155,7 @@ const game = {
 	   	}
 	   	// Hunger increase
 	   	if (this.timeElapsed % this.tomagotchi.hungerIntervalDefault === 0) {
-	   		this.tomagotchi.getHungrier();
+	   		this.tomagotchi.hunger = this.tomagotchi.incrementMeter(this.tomagotchi.hunger);
 	   		console.log("increasing hunger counter: " + this.tomagotchi.hunger);
 	   		if (this.tomagotchi.hunger >= this.tomagotchi.sleepHungerBoredomLimit * this.warningTimeProportion) {
 	   			// show hungry Tomagotchi
@@ -209,7 +164,7 @@ const game = {
 	   	}
 	   	// Boredom increase (fastest to change)
 	   	if (this.timeElapsed % this.tomagotchi.boredomIntervalDefault === 0) {
-	   		this.tomagotchi.getMoreBored();
+	   		this.tomagotchi.boredom = this.tomagotchi.incrementMeter(this.tomagotchi.boredom);
 	   		console.log("increasing boredom counter: " + this.tomagotchi.boredom);
 	   		if (this.tomagotchi.boredom >= this.tomagotchi.sleepHungerBoredomLimit * this.warningTimeProportion) {
 	   			// show hungry Tomagotchi
@@ -219,7 +174,7 @@ const game = {
 			}
 			// increase age (much slower to change)
 			if (this.timeElapsed % this.tomagotchi.ageIntervalDefault === 0) {
-	   		this.tomagotchi.growOlder();
+	   		this.tomagotchi.age = this.tomagotchi.incrementMeter(this.tomagotchi.age);
 	   		console.log("increasing age counter: " + this.tomagotchi.age);
 	   		// show effect of age (by increasing size of Tomagotchi)
 	   		this.ageTomagotchi();
