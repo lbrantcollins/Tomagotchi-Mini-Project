@@ -8,13 +8,13 @@ class ClassTomagotchi {
 	constructor(name) {
 		this.name = name;
 		this.age = 1;
-		this.ageLimit = 5;
-		this.ageIntervalDefault = 20;
+		this.ageLimit = 6;
+		this.ageIntervalDefault = 6;
 
 		this.sleepiness = 0;
 		this.sleepIntervalDefault = 7;
 		this.hunger = 0;
-		this.hungerIntervalDefault = 3;
+		this.hungerIntervalDefault = 2;
 		this.boredom = 0;
 		this.boredomIntervalDefault = 5;
 
@@ -23,7 +23,7 @@ class ClassTomagotchi {
 		this.sleepHungerBoredomBackup = 6;
 
 		this.wake = 0;
-		this.wakeIntervalDefault = 3;
+		this.wakeIntervalDefault = 4;
 	}
 
 	// decrement the sleep, hunger, boredom meters
@@ -156,9 +156,9 @@ const game = {
 			$('#image-div').css("animation-name", "age2");
 			$('#image-div').css("animation-duration", "6s");
 			$('#image-div').css("animation-iteration-count", "1");
-			$('#image-div').css("transform", "scale(2.5)");
-			$('#image-div').css("margin-left", 300);
-			$('#image-div').css("margin-top", 250);
+			$('#image-div').css("transform", "scale(2)");
+			$('#image-div').css("margin-left", 650);
+			$('#image-div').css("margin-top", 100);
 		}
 		if (this.tomagotchi.age === 3 ) {
 			//******************
@@ -167,9 +167,9 @@ const game = {
 			$('#image-div').css("animation-name", "age3");
 			$('#image-div').css("animation-duration", "6s");
 			$('#image-div').css("animation-iteration-count", "1");
-			$('#image-div').css("transform", "scale(4)");
-			$('#image-div').css("margin-left", 250);
-			$('#image-div').css("margin-top", 300);
+			$('#image-div').css("transform", "scale(3)");
+			$('#image-div').css("margin-left", 700);
+			$('#image-div').css("margin-top", 125);
 		}
 		if (this.tomagotchi.age === 4 ) {
 			//******************
@@ -178,9 +178,9 @@ const game = {
 			$('#image-div').css("animation-name", "age4");
 			$('#image-div').css("animation-duration", "6s");
 			$('#image-div').css("animation-iteration-count", "1");
-			$('#image-div').css("transform", "scale(5.5)");
-			$('#image-div').css("margin-left", 200);
-			$('#image-div').css("margin-top", 350);
+			$('#image-div').css("transform", "scale(4)");
+			$('#image-div').css("margin-left", 750);
+			$('#image-div').css("margin-top", 150);
 		}
 	},
 
