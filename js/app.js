@@ -7,7 +7,7 @@ console.log("Are you ready to own a Tomagotchi?");
 class ClassTomagotchi {
 	constructor(name) {
 		this.name = name;
-		this.age = 0;
+		this.age = 1;
 		this.hunger = 0;
 		this.sleepiness = 0;
 		this.boredom = 0;
@@ -72,6 +72,8 @@ const game = {
 		this.initializeScoreBoard();
 		this.startTimer();
 		console.log("max time: " + this.maxTimeLengthOfGame);
+		
+
 	},
 
 	createTomagotchi: function(name) {
@@ -92,7 +94,10 @@ const game = {
 		this.tomagotchi.isRested();
 		// change CSS image/animation to dark background
 		// and dark, sleeping image of pet
-		$("#image-src").attr("src", "./images/catSleepingBlackBackground.png")
+		$("#image-src").attr("src", "./images/catSleepingBlackBackground.png");
+		// $("#image-div").attr("padding", "50%");
+		// $("#image-div").attr("width", "300px");
+		// $("#image-div").attr("height", "600px");
 		$("body").css("background-color", "#171719");
 		$("body").css("color", "lightgrey");
 		// $("#image-div").attr("width", "100px")
@@ -103,7 +108,13 @@ const game = {
 		console.log("inside feedTomagotchi");
 		this.tomagotchi.isFed();
 		// change CSS image/animation to hungry pet
-		$("#image-src").attr("src", "./images/hungryCat.jpeg")
+		$("#image-src").attr("src", "./images/hungryCat.jpeg");
+		$('#image-div').css("animation-name", "bounce");
+		$('#image-div').css("animation-duration", "0.25s");
+		$('#image-div').css("animation-direction", "alternate");
+  		$('#image-div').css("animation-timing-function", "cubic-bezier(.5,0.05,1,.5)");
+  		$('#image-div').css("animation-iteration-count", "8");
+  		$('#image-div').css("animation-play-state", "paused");
 		$("body").css("background-color", "white");
 		$("body").css("color", "black");
 	},
@@ -113,7 +124,7 @@ const game = {
 		console.log("inside playWithTomagotchi");
 		this.tomagotchi.isPlayedWith();
 		// change CSS image/animation to playing pet
-		$("#image-src").attr("src", "./images/playingCat.jpeg")
+		$("#image-src").attr("src", "./images/playingCat.jpeg");
 		$("body").css("background-color", "white");
 		$("body").css("color", "black");
 		// $("#image-div").attr("width", "500px")
@@ -122,7 +133,7 @@ const game = {
 	revertToOriginalTomagotchiImage () {
 		console.log("inside revertToOriginalTomagotchiImage");
 		// change CSS image/animation return to original starting image
-		$("#image-src").attr("src", "./images/walkingCat.jpeg")
+		$("#image-src").attr("src", "./images/walkingCat.jpeg");
 		$("body").css("background-color", "white");
 		$("body").css("color", "black");
 	},
@@ -130,6 +141,20 @@ const game = {
 	ageTomagotchi () {
 		console.log("inside ageTomagotchi");
 		// change CSS image/animation increase size of pet
+		if (this.tomagotchi.age === 2 ) {
+		// 		console.log("inside css changes inside ageTomagotchi");
+		// 		$('#image-div').css("animation-name", "age2");
+		// 		$('#image-div').css("animation-duration", "2s");
+		// 		$('#image-div').css("animation-iteration-count", "1");
+				$('#image-div').css("transform", "scale(2)");
+			}
+				if (this.tomagotchi.age === 3 ) {
+		// 		console.log("inside css changes inside ageTomagotchi");
+		// 		$('#image-div').css("animation-name", "age3");
+		// 		$('#image-div').css("animation-duration", "2s");
+		// 		$('#image-div').css("animation-iteration-count", "1");
+				$('#image-div').css("transform", "scale(3.5)");
+			}
 	},
 
 	updateScoreBoard() {
@@ -168,7 +193,7 @@ const game = {
 	   		this.tomagotchi.getSleepier();
 	   		console.log("increasing sleep counter: " 
 	   			+ this.tomagotchi.sleepiness);
-	   		revertTime = this.timeElapsed + 1;
+	   		revertTime = this.timeElapsed + 2;
 
 	   	}
 	   	// Hunger increase
@@ -176,17 +201,17 @@ const game = {
 	   		this.tomagotchi.getHungrier();
 	   		console.log("increasing hunger counter: "
 	   			+ this.tomagotchi.hunger);
-	   		revertTime = this.timeElapsed + 1;
+	   		revertTime = this.timeElapsed + 2;
 	   	}
 	   	// Boredom increase (fastest to change)
 	   	if (this.timeElapsed % 3 === 0) {
 	   		this.tomagotchi.getMoreBored();
 	   		console.log("increasing boredom counter: "
 	   			+ this.tomagotchi.boredom);
-	   		revertTime = this.timeElapsed + 1;
+	   		revertTime = this.timeElapsed + 2;
 			}
 			// increase age (much slower to change)
-			if (this.timeElapsed % 11 === 0) {
+			if (this.timeElapsed % 4 === 0) {
 	   		this.tomagotchi.growOlder();
 	   		console.log("increasing age counter: "
 	   			+ this.tomagotchi.age);
@@ -196,7 +221,7 @@ const game = {
 			// Revert back to original image 
 			// after some time spent in feed, play, or sleep image
 			if (this.timeElapsed === revertTime) {
-				this.revertToOriginalTomagotchiImage();
+				this.revertToOriginalTomagotchiImage(this.tomagotchi.age);
 			} 
 
 	   	// Display updated score board

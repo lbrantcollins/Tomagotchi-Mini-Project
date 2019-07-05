@@ -7,9 +7,40 @@ img {
     max-height: 100%;
 }
 
+@keyframes age2 {
+  from {
+  	transform: scale(1);
+  }
+  to {
+  	transform: scale(2);
+  }
+}
+
+@keyframes age3 {
+  from {
+  	transform: scale(2);
+  }
+  to {
+  	transform: scale(3.5);
+  }
+}
+
+@keyframes bounce {
+  from { transform: translate3d(0, 0, 0);     }
+  to   { transform: translate3d(0, 50px, 0); }
+}
+
 #image-div {
-	width: 200px;
-	height: 300px;
+	margin: 250px 100px 250px 600px;
+	width: 300px;
 /*	background-color: lavender;
 	border: 2px solid black;*/
+}
+
+
+
+#animate {
+	width: 50px;
+	height: 50px;
+	background-color: red;
 }
