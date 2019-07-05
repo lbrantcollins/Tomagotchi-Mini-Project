@@ -8,15 +8,15 @@ class ClassTomagotchi {
 	constructor(name) {
 		this.name = name;
 		this.age = 1;
-		this.ageLimit = 4;
-		this.ageIntervalDefault = 13;
+		this.ageLimit = 5;
+		this.ageIntervalDefault = 4;
 
 		this.sleepiness = 0;
 		this.sleepIntervalDefault = 11;
 		this.hunger = 0;
 		this.hungerIntervalDefault = 8;
 		this.boredom = 0;
-		this.boredomIntervalDefault = 3;
+		this.boredomIntervalDefault = 8; //3
 
 		this.sleepHungerBoredomLimit = 6;
 
@@ -103,15 +103,30 @@ const game = {
 
 	ageTomagotchi () {
 		console.log("inside ageTomagotchi");
-		// change CSS image/animation increase size of pet
+		// use CSS transition to animate increase size of Tomagotchi as it ages
 		if (this.tomagotchi.age === 2 ) {
-			$('#image-div').css("transform", "scale(2)");
+			$('#image-div').css("animation-name", "age2");
+			$('#image-div').css("animation-duration", "6s");
+			$('#image-div').css("animation-iteration-count", "1");
+			$('#image-div').css("transform", "scale(2.5)");
+			$('#image-div').css("margin-left", 300);
+			$('#image-div').css("margin-top", 250);
 		}
 		if (this.tomagotchi.age === 3 ) {
-			$('#image-div').css("transform", "scale(3)");
+			$('#image-div').css("animation-name", "age3");
+			$('#image-div').css("animation-duration", "6s");
+			$('#image-div').css("animation-iteration-count", "1");
+			$('#image-div').css("transform", "scale(4)");
+			$('#image-div').css("margin-left", 250);
+			$('#image-div').css("margin-top", 300);
 		}
 		if (this.tomagotchi.age === 4 ) {
-			$('#image-div').css("transform", "scale(4)");
+			$('#image-div').css("animation-name", "age4");
+			$('#image-div').css("animation-duration", "6s");
+			$('#image-div').css("animation-iteration-count", "1");
+			$('#image-div').css("transform", "scale(5.5)");
+			$('#image-div').css("margin-left", 200);
+			$('#image-div').css("margin-top", 350);
 		}
 	},
 

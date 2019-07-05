@@ -12,8 +12,53 @@ iframe {
 }
 
 #image-div {
-	margin: 250px 100px 250px 300px;
+	margin: 200px 100px 250px 400px;
+	/*margin: auto 0;*/
 	width: 200px;
 /*	background-color: lavender;
 	border: 2px solid black;*/
+}
+
+@keyframes age2 {
+  from {
+  	transform: scale(1);
+  	margin-left: 400px;
+  	margin-top: 200px;
+  }
+  to {
+  	transform: scale(2.5);
+  	margin-left: 300px;
+  	margin-top: 250px;
+  }
+  }
+}
+
+@keyframes age3 {
+  from {
+  	transform: scale(2.5);
+  	margin-left: 300px;
+  	margin-top: 250px;
+  }
+  }
+  to {
+  	transform: scale(4);
+  	margin-left: 250px;
+  	margin-top: 300px;
+  }
+  }
+}
+
+@keyframes age4 {
+  from {
+  	transform: scale(4);
+  	margin-left: 250px;
+  	margin-top: 300px;
+  }
+  }
+  to {
+  	transform: scale(5.5);
+  	margin-left: 200px;
+  	margin-top: 350px;
+  }
+  }
 }
