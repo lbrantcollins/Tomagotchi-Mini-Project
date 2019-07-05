@@ -94,7 +94,8 @@ const game = {
 		this.tomagotchi.isRested();
 		// change CSS image/animation to dark background
 		// and dark, sleeping image of pet
-		$("#image-src").attr("src", "./images/catSleepingBlackBackground.png");
+		$("#image-src").attr("src", "https://giphy.com/embed/1URlthYDD9ZfNe68JT");
+		// $("#image-src").attr("src", "./images/catSleepingBlackBackground.png");
 		// $("#image-div").attr("padding", "50%");
 		// $("#image-div").attr("width", "300px");
 		// $("#image-div").attr("height", "600px");
@@ -108,15 +109,16 @@ const game = {
 		console.log("inside feedTomagotchi");
 		this.tomagotchi.isFed();
 		// change CSS image/animation to hungry pet
-		$("#image-src").attr("src", "./images/hungryCat.jpeg");
-		$('#image-div').css("animation-name", "bounce");
-		$('#image-div').css("animation-duration", "0.25s");
-		$('#image-div').css("animation-direction", "alternate");
-  		$('#image-div').css("animation-timing-function", "cubic-bezier(.5,0.05,1,.5)");
-  		$('#image-div').css("animation-iteration-count", "8");
-  		$('#image-div').css("animation-play-state", "paused");
+		// $("#image-src").attr("src", "./images/hungryCat.jpeg");
+		$("#image-src").attr("src", "https://giphy.com/embed/1r94BxRXEi2l5YnGVp");
+		// $('#image-div').css("animation-name", "bounce");
+		// $('#image-div').css("animation-duration", "0.25s");
+		// $('#image-div').css("animation-direction", "alternate");
+  // 		$('#image-div').css("animation-timing-function", "cubic-bezier(.5,0.05,1,.5)");
+  // 		$('#image-div').css("animation-iteration-count", "8");
+  // 		$('#image-div').css("animation-play-state", "paused");
 		$("body").css("background-color", "white");
-		$("body").css("color", "black");
+		// $("body").css("color", "black");
 	},
 
 	// play with the tomagotchi
@@ -124,16 +126,18 @@ const game = {
 		console.log("inside playWithTomagotchi");
 		this.tomagotchi.isPlayedWith();
 		// change CSS image/animation to playing pet
-		$("#image-src").attr("src", "./images/playingCat.jpeg");
+		// $("#image-src").attr("src", "./images/playingCat.jpeg");
+		$("#image-src").attr("src", "https://giphy.com/embed/2zotXB1xGbTB28cKAD");
 		$("body").css("background-color", "white");
-		$("body").css("color", "black");
+		// $("body").css("color", "black");
 		// $("#image-div").attr("width", "500px")
 	},
 
 	revertToOriginalTomagotchiImage () {
 		console.log("inside revertToOriginalTomagotchiImage");
 		// change CSS image/animation return to original starting image
-		$("#image-src").attr("src", "./images/walkingCat.jpeg");
+		// $("#image-src").attr("src", "./images/walkingCat.jpeg");
+		$("#image-src").attr("src", "https://giphy.com/embed/xl1pVfHSGczTgLL3YQ");
 		$("body").css("background-color", "white");
 		$("body").css("color", "black");
 	},
