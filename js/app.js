@@ -9,21 +9,25 @@ class ClassTomagotchi {
 		this.name = name;
 		this.age = 1;
 		this.ageLimit = 6;
-		this.ageIntervalDefault = 6;
+		this.ageIntervalDefault = 31;
 
 		this.sleepiness = 0;
 		this.sleepIntervalDefault = 7;
+		this.sleepInterval = 7;
 		this.hunger = 0;
-		this.hungerIntervalDefault = 2;
+		this.hungerIntervalDefault = 3;
+		this.hungerInterval = 3;
 		this.boredom = 0;
 		this.boredomIntervalDefault = 5;
+		this.boredomInterval = 5;
 
 		this.sleepHungerBoredomLimit = 10;  // must be an even number
 		this.sleepHungerBoredomWarningTime = 7;
 		this.sleepHungerBoredomBackup = 6;
 
 		this.wake = 0;
-		this.wakeIntervalDefault = 4;
+		this.wakeIntervalDefault = 1;
+		this.wakeInterval = 1;
 	}
 
 	// decrement the sleep, hunger, boredom meters
@@ -50,13 +54,14 @@ class ClassTomagotchi {
 const game = {
 	tomagotchi: null,
 	timeElapsed: 0,
-	maxTimeLengthOfGame: 50,
-	
+	maxTimeLengthOfGame: 77,
+
 
 	// Start: new Tomagotchi, fresh score board, start the game timer
 	startTomagotchi() {
 		this.createTomagotchi("tommy"); //****** prompt user for name here
-		this.initializeScoreBoard();
+		// this.initializeScoreBoard();
+		this.wakeInterval = this.maxTimeLengthOfGame + 1;
 		this.runGame();
 		console.log("max time: " + this.maxTimeLengthOfGame);
 	},
@@ -69,15 +74,15 @@ const game = {
 		this.tomagotchi = new ClassTomagotchi(name);
 	},
 
-	initializeScoreBoard() {
+	// initializeScoreBoard() {
 		//******************
 		//****************** improve scoreboard appearance with growing meters, not text
 		//****************** numbers (perhaps div with flex box, small boxes added as time progresses)
 		//****************** change meter to red when getting close to limit (sleep, hunger, boredom)
-		//****************** (give the meter a border so it's obvious how much "time" is left)
+		//****************** (give the meter different background so it's obvious how much "time" is left)
 		//******************
-		$('.limit').text(` out of ${this.tomagotchi.sleepHungerBoredomLimit}`);
-	},
+		// $('.limit').text(` out of ${this.tomagotchi.sleepHungerBoredomLimit}`);
+	// },
 
 	// Let the Tomagotchi sleep (turn off the lights)
 	turnOutLights() {
@@ -95,18 +100,14 @@ const game = {
 			console.log("div index: " + (currentCount - i));
 	   	$("#sleep-meter" + (currentCount - i)).remove();
 		}
-		//******************
-		//****************** stall the boredom and hunger timers
-		//****************** start the wake timer
-		//******************
 
 	},
 
 	// Wake up the Tomagotchi (turn on the lights)
 	turnOnLights() {
 		console.log("inside turnOnLights");
-		// return to original start image of sitting cat
-		$("#image-src").attr("src", "https://giphy.com/embed/xl1pVfHSGczTgLL3YQ");
+		// Simon's cat is pointing and meowing for you to turn on the lights
+		$("#image-src").attr("src", "https://giphy.com/embed/4T1Sf6UvSXYyLJ5tUS");
 		$("body").css("background-color", "lavender");
 	},
 
@@ -184,17 +185,6 @@ const game = {
 		}
 	},
 
-	// updateScoreBoard() {
-	// 	// console.log("inside updateScoreBoard");
-	// 	// console.log("sleep", this.tomagotchi.sleepiness, 
-	// 		// "hunger", this.tomagotchi.hunger, 
-	// 		// "boredom", this.tomagotchi.boredom, 
-	// 		// "age", this.tomagotchi.age);
-	// 	$('#sleep-count').text(this.tomagotchi.sleepiness);
-	// 	$('#hunger-count').text(this.tomagotchi.hunger);
-	// 	$('#boredom-count').text(this.tomagotchi.boredom);
-	// },
-
 	runGame() {
 		// MDN timer -- returns a handle that can be used to stop timer
 		// setInterval -- increase time elapsed
@@ -214,7 +204,7 @@ const game = {
 
 			
 	   	// Sleepiness increase (slowest to change)
-	   	if (this.timeElapsed % this.tomagotchi.sleepIntervalDefault === 0) {
+	   	if (this.timeElapsed % this.tomagotchi.sleepInterval === 0) {
 	   		this.tomagotchi.sleepiness = this.tomagotchi.incrementMeter(this.tomagotchi.sleepiness);
 	   		$div = $("<div/>");
 	   		$div.attr("class", "meter-specs sleep-meter-color");
@@ -228,7 +218,7 @@ const game = {
 	   	}
 
 	   	// Hunger increase
-	   	if (this.timeElapsed % this.tomagotchi.hungerIntervalDefault === 0) {
+	   	if (this.timeElapsed % this.tomagotchi.hungerInterval === 0) {
 	   		this.tomagotchi.hunger = this.tomagotchi.incrementMeter(this.tomagotchi.hunger);
 	   		$div = $("<div/>");
 	   		$div.attr("class", "meter-specs hunger-meter-color");
@@ -242,7 +232,7 @@ const game = {
 	   	}
 
 	   	// Boredom increase (fastest to change)
-	   	if (this.timeElapsed % this.tomagotchi.boredomIntervalDefault === 0) {
+	   	if (this.timeElapsed % this.tomagotchi.boredomInterval === 0) {
 	   		this.tomagotchi.boredom = this.tomagotchi.incrementMeter(this.tomagotchi.boredom);
 	   		$div = $("<div/>");
 	   		$div.attr("class", "meter-specs boredom-meter-color");
@@ -307,20 +297,23 @@ game.startTomagotchi();
 //**************************************************
 $('#feed-me').on('click', (e) => {
 	game.feedTomagotchi();
-	// game.updateScoreBoard();
 })
 
 $('#play-with-me').on('click', (e) => {
 	game.playWithTomagotchi();
-	// game.updateScoreBoard();
 });
 
 $('#turn-out-lights').on('click', (e) => {
+	game.tomagotchi.hungerInterval = game.maxTimeLengthOfGame + 1;
+	game.tomagotchi.boredomInterval = game.maxTimeLengthOfGame + 1;
+	game.tomagotchi.wakeInterval = game.tomagotchi.wakeIntervalDefault;
 	game.turnOutLights();
-	// game.updateScoreBoard();
 });
 
-$('#turn-out-lights').on('click', (e) => {
-	game.turnOutLights();
-	// game.updateScoreBoard();
+$('#turn-on-lights').on('click', (e) => {
+	game.tomagotchi.wakeInterval = game.maxTimeLengthOfGame + 1;
+	game.tomagotchi.hungerInterval = game.tomagotchi.hungerIntervalDefault;
+	game.tomagotchi.boredomInterval = game.tomagotchi.boredomIntervalDefault;
+	game.turnOnLights();
+
 });
