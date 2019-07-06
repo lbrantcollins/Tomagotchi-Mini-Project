@@ -284,6 +284,10 @@ const game = {
 				console.log(`${this.tomagotchi.name} died from lack of sleep!`);
 				$("#image-src").attr("src", "https://giphy.com/embed/SGld0SRSJzZuKAm9c1");
 				clearInterval(timer);
+			} 	else if (this.tomagotchi.wake >= this.tomagotchi.sleepHungerBoredomLimit) {
+				console.log(`${this.tomagotchi.name} died from too much sleep in the dark!`);
+				$("#image-src").attr("src", "https://giphy.com/embed/SGld0SRSJzZuKAm9c1");
+				clearInterval(timer);
 			} else if (this.tomagotchi.hunger >= this.tomagotchi.sleepHungerBoredomLimit) {
 				console.log(`${this.tomagotchi.name} died from hunger!`);
 				$("#image-src").attr("src", "https://giphy.com/embed/SGld0SRSJzZuKAm9c1");
