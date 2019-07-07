@@ -9,16 +9,16 @@ class ClassTomagotchi {
 		this.name = name;
 		this.age = 1;
 		this.ageLimit = 6;
-		this.ageIntervalDefault = 31;
+		this.ageIntervalDefault = 31;  // 31
 
 		this.sleepiness = 0;
-		this.sleepIntervalDefault = 7;
+		this.sleepIntervalDefault = 7;  // 7
 		this.sleepInterval = 7;
 		this.hunger = 0;
-		this.hungerIntervalDefault = 3;
+		this.hungerIntervalDefault = 3;  // 3
 		this.hungerInterval = 3;
-		this.boredom = 0;
-		this.boredomIntervalDefault = 5;
+		this.boredom = 0; 
+		this.boredomIntervalDefault = 5;  // 5
 		this.boredomInterval = 5;
 
 		this.sleepHungerBoredomLimit = 10;  // must be an even number
@@ -26,7 +26,7 @@ class ClassTomagotchi {
 		this.sleepHungerBoredomBackup = 6;
 
 		this.wake = 0;
-		this.wakeIntervalDefault = 2;
+		this.wakeIntervalDefault = 2;  // 2
 		this.wakeInterval = 2;
 	}
 
@@ -127,7 +127,9 @@ const game = {
 		this.tomagotchi.hunger = this.tomagotchi.decrementMeter(this.tomagotchi.hunger);
 		console.log("hunger meter = ", this.tomagotchi.hunger);
 		// change CSS image/animation happy heart
-		$("#image-src").attr("src", "https://giphy.com/embed/1r94BxRXEi2l5YnGVp");
+		// $("#image-src").attr("src", "https://giphy.com/embed/1r94BxRXEi2l5YnGVp");
+		// change CSS image/animation to cat happy to get a present: a mouse!
+		$("#image-src").attr("src", "https://giphy.com/embed/d5J083vjsxXRbwnTqS");
 		$("body").css("background-color", "lavender");
 		const numToRemove = Math.min(currentCount, this.tomagotchi.sleepHungerBoredomBackup);
 		console.log("currentCount = " + currentCount);
@@ -166,9 +168,9 @@ const game = {
 			$('#image-div').css("animation-name", "age2");
 			$('#image-div').css("animation-duration", "6s");
 			$('#image-div').css("animation-iteration-count", "1");
-			$('#image-div').css("transform", "scale(2)");
+			$('#image-div').css("transform", "scale(2.5)");
 			$('#image-div').css("margin-left", 650);
-			$('#image-div').css("margin-top", 100);
+			$('#image-div').css("margin-top", 200);
 		}
 		if (this.tomagotchi.age === 3 ) {
 			//******************
@@ -177,9 +179,9 @@ const game = {
 			$('#image-div').css("animation-name", "age3");
 			$('#image-div').css("animation-duration", "6s");
 			$('#image-div').css("animation-iteration-count", "1");
-			$('#image-div').css("transform", "scale(3)");
+			$('#image-div').css("transform", "scale(4)");
 			$('#image-div').css("margin-left", 700);
-			$('#image-div').css("margin-top", 125);
+			$('#image-div').css("margin-top", 300);
 		}
 		if (this.tomagotchi.age === 4 ) {
 			//******************
@@ -188,9 +190,9 @@ const game = {
 			$('#image-div').css("animation-name", "age4");
 			$('#image-div').css("animation-duration", "6s");
 			$('#image-div').css("animation-iteration-count", "1");
-			$('#image-div').css("transform", "scale(4)");
+			$('#image-div').css("transform", "scale(5.5)");
 			$('#image-div').css("margin-left", 750);
-			$('#image-div').css("margin-top", 150);
+			$('#image-div').css("margin-top", 400);
 		}
 	},
 
@@ -298,7 +300,7 @@ const game = {
 				clearInterval(timer);
 			} else if (this.tomagotchi.age >= this.tomagotchi.ageLimit) {
 				console.log(`${this.tomagotchi.name} is too old to continue!`);
-				$("#image-src").attr("src", "https://giphy.com/embed/SGld0SRSJzZuKAm9c1");
+				$("#image-src").attr("src", "https://giphy.com/embed/NQDcH2ZZaPV8QBDYK3");
 				clearInterval(timer);
 			}
 

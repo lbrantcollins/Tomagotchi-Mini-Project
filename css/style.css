@@ -13,10 +13,10 @@ iframe {
 }
 
 button {
-	margin: 20px 0;
+	margin: 10px 0;
 }
 #image-div {
-	margin: 75px 100px 250px 600px;
+	margin: 100px 100px 250px 600px;
 	/*margin: auto 0;*/
 	width: 200px;
 /*	background-color: lavender;
@@ -69,38 +69,38 @@ button {
   from {
   	transform: scale(1);
   	margin-left: 600px;
-  	margin-top: 75px;
+  	margin-top: 100px;
   }
   to {
-  	transform: scale(2);
+  	transform: scale(2.5);
   	margin-left: 650px;
-  	margin-top: 100px;
+  	margin-top: 200px;
   }
 }
 
 @keyframes age3 {
   from {
-  	transform: scale(2);
-  	margin-left: 650px;
-  	margin-top: 100px;
+  	transform: scale(2.5);
+  	/*margin-left: 650px;*/
+  	margin-top: 200px;
   }
   to {
-  	transform: scale(3);
-  	margin-left: 700px;
-  	margin-top: 125px;
+  	transform: scale(4);
+  	/*margin-left: 700px;*/
+  	margin-top: 300px;
   }
 }
 
 @keyframes age4 {
   from {
-  	transform: scale(3);
-  	margin-left: 700px;
-  	margin-top: 150px;
+  	transform: scale(4);
+  	/*margin-left: 700px;*/
+  	margin-top: 300px;
   }
   to {
-  	transform: scale(4);
-  	margin-left: 750px;
-  	margin-top: 125px;
+  	transform: scale(5.5);
+  	/*margin-left: 750px;*/
+  	margin-top: 400px;
   }
 }
 
