@@ -15,6 +15,15 @@ iframe {
 button {
 	margin: 10px 0;
 }
+
+input {
+  width: 300px;
+  margin-right: 10px;
+  border-color: #17A2B9;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
 #image-div {
 	margin: 100px 100px 250px 600px;
 	/*margin: auto 0;*/

@@ -58,9 +58,12 @@ const game = {
 
 
 	// Start: new Tomagotchi, fresh score board, start the game timer
-	startTomagotchi() {
-		this.createTomagotchi("tommy"); //****** prompt user for name here
-		// this.initializeScoreBoard();
+	startTomagotchi(name) {
+		// create a Tomagotchi with the name chosen by the user
+		this.createTomagotchi(name);
+		console.log(this.tomagotchi);
+		console.log(this.maxTimeLengthOfGame);
+		console.log(this.tomagotchi.wakeInterval);
 		this.tomagotchi.wakeInterval = this.maxTimeLengthOfGame + 1;
 		this.runGame();
 		console.log("max time: " + this.maxTimeLengthOfGame);
@@ -68,21 +71,8 @@ const game = {
 
 	createTomagotchi: function(name) {
 		// console.log("inside createTomagotchi");
-		//******************
-		//****************** allow user to enter a name
-		//******************
 		this.tomagotchi = new ClassTomagotchi(name);
 	},
-
-	// initializeScoreBoard() {
-		//******************
-		//****************** improve scoreboard appearance with growing meters, not text
-		//****************** numbers (perhaps div with flex box, small boxes added as time progresses)
-		//****************** change meter to red when getting close to limit (sleep, hunger, boredom)
-		//****************** (give the meter different background so it's obvious how much "time" is left)
-		//******************
-		// $('.limit').text(` out of ${this.tomagotchi.sleepHungerBoredomLimit}`);
-	// },
 
 	// Let the Tomagotchi sleep (turn off the lights)
 	turnOutLights() {
@@ -317,21 +307,38 @@ const game = {
 //**************************************************
 // Start the game
 //**************************************************
-game.startTomagotchi();
+// game.startTomagotchi();
 
 
 
 //**************************************************
 // Event listeners
 //**************************************************
+
+// ***** THE GAME BEGINS WHEN....
+// User submits a form to enter a name for their Tomagotchi
+$('#enter-name').on('submit', (event) => {
+	// prevent form from sending data (to stop page "reload")
+	event.preventDefault();
+	// retrieve the text entered by the user
+	const $input = $(event.target[0]);
+	const name = $input.val();
+	console.log("Name: ", name);
+	// create a Tomagotchi with the name chosen by the user
+	game.startTomagotchi(name);
+})
+
+// Actions to take when user clicks the "Feed Me!" button
 $('#feed-me').on('click', (e) => {
 	game.feedTomagotchi();
 })
 
+// Actions to take when user clicks the "Play with me!" button
 $('#play-with-me').on('click', (e) => {
 	game.playWithTomagotchi();
 });
 
+// Actions to take when user clicks the "Turn out the lights!" button
 $('#turn-out-lights').on('click', (e) => {
 	game.tomagotchi.hungerInterval = game.maxTimeLengthOfGame + 1;
 	game.tomagotchi.boredomInterval = game.maxTimeLengthOfGame + 1;
@@ -341,8 +348,8 @@ $('#turn-out-lights').on('click', (e) => {
 	
 });
 
+// Actions to take when user clicks the "Turn on the lights!" button
 $('#turn-on-lights').on('click', (e) => {
-	
 	game.tomagotchi.hungerInterval = game.tomagotchi.hungerIntervalDefault;
 	game.tomagotchi.boredomInterval = game.tomagotchi.boredomIntervalDefault;
 	game.tomagotchi.sleepInterval = game.tomagotchi.sleepIntervalDefault;
