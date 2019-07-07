@@ -19,7 +19,7 @@ button {
 input {
   width: 300px;
   margin-right: 10px;
-  border-color: #17A2B9;
+  /*border-color: #17A2B9;*/
   font-size: 20px;
   border-radius: 5px;
 }
