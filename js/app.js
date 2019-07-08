@@ -72,6 +72,10 @@ const game = {
 	createTomagotchi: function(name) {
 		// console.log("inside createTomagotchi");
 		this.tomagotchi = new ClassTomagotchi(name);
+		$('#image-div').css("animation-name", "age1");
+		$('#image-div').css("animation-duration", "1s");
+		$('#image-div').css("animation-iteration-count", "1");
+		$('#image-div').css("transform", "scale(1)");
 	},
 
 	// Let the Tomagotchi sleep (turn off the lights)

@@ -28,6 +28,7 @@ input {
 	margin: 100px 100px 250px 600px;
 	/*margin: auto 0;*/
 	width: 200px;
+  transform: scale(0.01);
 /*	background-color: lavender;
 	border: 2px solid black;*/
 }
@@ -72,6 +73,15 @@ input {
   height: 15px;
   /*margin: 5px;*/
 
+}
+
+@keyframes age1 {
+  from {
+    transform: scale(0.01);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 @keyframes age2 {
