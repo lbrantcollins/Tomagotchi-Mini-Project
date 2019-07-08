@@ -93,6 +93,7 @@ const game = {
 		// change CSS image/animation to dark background
 		// and dark, sleeping image of pet
 		$("#image-src").attr("src", "https://giphy.com/embed/1URlthYDD9ZfNe68JT");
+		$("body").css("background-image", "none");
 		$("body").css("background-color", "#343A40");
 
 		// claw back some of the meter reading to a lower value
@@ -114,6 +115,7 @@ const game = {
 		// Return to original gif at the start of the game
 		$("#image-src").attr("src", "https://giphy.com/embed/xl1pVfHSGczTgLL3YQ");
 		$("body").css("background-color", "lavender");
+		// $("body").css("background-image", "url(../images/Background_Blue_with_Paw_Prints.jpg)");
 
 		// clear the meter completely
 		const currentCount = this.tomagotchi.wake;
