@@ -1,6 +1,9 @@
 body {
 	background-color: lavender;
 	margin: 50px;
+  background-image: url("../images/Background_Blue_with_Paw_Prints.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 img {
